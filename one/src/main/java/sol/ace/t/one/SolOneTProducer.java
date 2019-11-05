@@ -21,9 +21,11 @@ public class SolOneTProducer {
         });
 
         Topic topic = JCSMPFactory.onlyInstance().createTopic("tutorial/topic");
-        TextMessage msg = JCSMPFactory.onlyInstance().createMessage(TextMessage.class);
-        String text = "Hello world! Isn't this a fine day?!";
-        msg.setText(text);
-        producer.send(msg,topic);
+        for (int index = 0; index < 50; index++) {
+            TextMessage msg = JCSMPFactory.onlyInstance().createMessage(TextMessage.class);
+            String text = "Hello world! Isn't this a fine day no. " + (index + 1) + "?!";
+            msg.setText(text);
+            producer.send(msg, topic);
+        }
     }
 }

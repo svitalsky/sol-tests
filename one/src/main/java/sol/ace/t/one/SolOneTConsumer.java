@@ -8,7 +8,7 @@ public class SolOneTConsumer {
     public static void main(String[] args) throws JCSMPException {
         JCSMPSession session = new SolOneTConnector().connect();
 
-        CountDownLatch latch = new CountDownLatch(1);
+        CountDownLatch latch = new CountDownLatch(50);
 
         XMLMessageConsumer consumer = session.getMessageConsumer(new XMLMessageListener() {
 
@@ -19,8 +19,8 @@ public class SolOneTConsumer {
                                       ((TextMessage)msg).getText());
                 } else {
                     System.out.println("Message received.");
+                    System.out.printf("Message Dump:%n%s%n",msg.dump());
                 }
-                System.out.printf("Message Dump:%n%s%n",msg.dump());
                 latch.countDown();  // unblock main thread
             }
 
