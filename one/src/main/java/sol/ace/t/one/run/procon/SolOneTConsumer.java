@@ -1,11 +1,11 @@
-package sol.ace.t.one.procon;
+package sol.ace.t.one.run.procon;
 
 import com.solacesystems.jcsmp.*;
-import sol.ace.t.one.SolOneTConnector;
+import sol.ace.t.one.support.SolOneTConnector;
 
 import java.util.concurrent.CountDownLatch;
 
-import static sol.ace.t.one.Config.CONFIG;
+import static sol.ace.t.one.support.Config.CONFIG;
 
 public class SolOneTConsumer {
     public static void main(String[] args) throws JCSMPException {

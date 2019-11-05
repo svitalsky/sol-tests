@@ -1,12 +1,12 @@
-package sol.ace.t.one.queue.simple;
+package sol.ace.t.one.run.queue.simple;
 
 import com.solacesystems.jcsmp.*;
-import sol.ace.t.one.MsgProducers;
+import sol.ace.t.one.support.MsgProducers;
 
 import java.text.DateFormat;
 import java.util.Date;
 
-import static sol.ace.t.one.Config.CONFIG;
+import static sol.ace.t.one.support.Config.CONFIG;
 
 public class QueueProducer {
     public static void main(String[] args) throws JCSMPException {

@@ -1,7 +1,8 @@
-package sol.ace.t.one;
+package sol.ace.t.one.support;
 
 import com.solacesystems.jcsmp.BytesXMLMessage;
 
+@SuppressWarnings("WeakerAccess")
 public class MsgInfo {
     public volatile boolean acked = false;
     public volatile boolean publishedSuccessfully = false;

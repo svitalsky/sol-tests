@@ -1,8 +1,8 @@
-package sol.ace.t.one;
+package sol.ace.t.one.support;
 
 import com.solacesystems.jcsmp.*;
 
-import static sol.ace.t.one.Config.CONFIG;
+import static sol.ace.t.one.support.Config.CONFIG;
 
 public class SolOneTConnector {
     public JCSMPSession connect() throws JCSMPException {

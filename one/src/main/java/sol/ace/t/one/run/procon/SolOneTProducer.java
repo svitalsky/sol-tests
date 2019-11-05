@@ -1,9 +1,9 @@
-package sol.ace.t.one.procon;
+package sol.ace.t.one.run.procon;
 
 import com.solacesystems.jcsmp.*;
-import sol.ace.t.one.MsgProducers;
+import sol.ace.t.one.support.MsgProducers;
 
-import static sol.ace.t.one.Config.CONFIG;
+import static sol.ace.t.one.support.Config.CONFIG;
 
 public class SolOneTProducer {
     public static void main(String[] args) throws JCSMPException {

@@ -1,11 +1,11 @@
-package sol.ace.t.one.queue;
+package sol.ace.t.one.run.queue;
 
 import com.solacesystems.jcsmp.*;
-import sol.ace.t.one.SolOneTConnector;
+import sol.ace.t.one.support.SolOneTConnector;
 
 import java.util.concurrent.CountDownLatch;
 
-import static sol.ace.t.one.Config.CONFIG;
+import static sol.ace.t.one.support.Config.CONFIG;
 
 public class QueueReceiver {
     public static void main(String[] args) throws JCSMPException {
