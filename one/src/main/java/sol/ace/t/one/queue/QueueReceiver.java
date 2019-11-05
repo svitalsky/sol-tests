@@ -1,4 +1,4 @@
-package sol.ace.t.one.queue.simple;
+package sol.ace.t.one.queue;
 
 import com.solacesystems.jcsmp.*;
 import sol.ace.t.one.SolOneTConnector;
@@ -18,7 +18,7 @@ public class QueueReceiver {
         EndpointProperties endpoint_props = new EndpointProperties();
         endpoint_props.setAccessType(EndpointProperties.ACCESSTYPE_EXCLUSIVE);
 
-        CountDownLatch latch = new CountDownLatch(1);
+        CountDownLatch latch = new CountDownLatch(CONFIG.getIntProperty("solace.count"));
 
         FlowReceiver consumer = session.createFlow(new XMLMessageListener() {
             @Override
@@ -32,6 +32,10 @@ public class QueueReceiver {
                 // When the ack mode is set to SUPPORTED_MESSAGE_ACK_CLIENT,
                 // guaranteed delivery messages are acknowledged after
                 // processing
+                try {
+                    Thread.sleep(50);
+                }
+                catch (InterruptedException e) {/**/}
                 msg.ackMessage();
                 latch.countDown(); // unblock main thread
             }

@@ -24,4 +24,13 @@ public enum Config {
     public String getProperty(String key) {
         return properties.getProperty(key);
     }
+
+    public int getIntProperty(String key) {
+        try {
+            return Integer.parseInt(properties.getProperty(key));
+        }
+        catch (NumberFormatException e) {
+            throw new IllegalArgumentException(String.format("Not an integer property: '%s'", key));
+        }
+    }
 }

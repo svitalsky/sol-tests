@@ -11,7 +11,7 @@ public class SolOneTConsumer {
     public static void main(String[] args) throws JCSMPException {
         JCSMPSession session = new SolOneTConnector().connect();
 
-        CountDownLatch latch = new CountDownLatch(50);
+        CountDownLatch latch = new CountDownLatch(CONFIG.getIntProperty("solace.count"));
 
         XMLMessageConsumer consumer = session.getMessageConsumer(new XMLMessageListener() {
 
