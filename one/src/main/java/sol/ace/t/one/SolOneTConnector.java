@@ -4,8 +4,8 @@ import com.solacesystems.jcsmp.*;
 
 import static sol.ace.t.one.Config.CONFIG;
 
-class SolOneTConnector {
-    JCSMPSession connect() throws JCSMPException {
+public class SolOneTConnector {
+    public JCSMPSession connect() throws JCSMPException {
         JCSMPSession session = JCSMPFactory.onlyInstance().createSession(prepareProperties());
         session.connect();
         return session;

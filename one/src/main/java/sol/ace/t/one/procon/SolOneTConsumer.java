@@ -1,6 +1,7 @@
-package sol.ace.t.one;
+package sol.ace.t.one.procon;
 
 import com.solacesystems.jcsmp.*;
+import sol.ace.t.one.SolOneTConnector;
 
 import java.util.concurrent.CountDownLatch;
 
