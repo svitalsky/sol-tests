@@ -4,6 +4,8 @@ import com.solacesystems.jcsmp.*;
 
 import java.util.concurrent.CountDownLatch;
 
+import static sol.ace.t.one.Config.CONFIG;
+
 public class SolOneTConsumer {
     public static void main(String[] args) throws JCSMPException {
         JCSMPSession session = new SolOneTConnector().connect();
@@ -31,7 +33,7 @@ public class SolOneTConsumer {
             }
         });
 
-        Topic topic = JCSMPFactory.onlyInstance().createTopic("tutorial/topic");
+        Topic topic = JCSMPFactory.onlyInstance().createTopic(CONFIG.getProperty("solace.topic"));
         session.addSubscription(topic);
         consumer.start();
 

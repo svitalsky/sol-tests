@@ -2,6 +2,8 @@ package sol.ace.t.one;
 
 import com.solacesystems.jcsmp.*;
 
+import static sol.ace.t.one.Config.CONFIG;
+
 public class SolOneTProducer {
     public static void main(String[] args) throws JCSMPException {
         JCSMPSession session = new SolOneTConnector().connect();
@@ -20,7 +22,7 @@ public class SolOneTProducer {
             }
         });
 
-        Topic topic = JCSMPFactory.onlyInstance().createTopic("tutorial/topic");
+        Topic topic = JCSMPFactory.onlyInstance().createTopic(CONFIG.getProperty("solace.topic"));
         for (int index = 0; index < 50; index++) {
             TextMessage msg = JCSMPFactory.onlyInstance().createMessage(TextMessage.class);
             String text = "Hello world! Isn't this a fine day no. " + (index + 1) + "?!";
