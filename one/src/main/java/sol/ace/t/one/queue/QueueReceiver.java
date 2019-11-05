@@ -51,5 +51,8 @@ public class QueueReceiver {
         catch (InterruptedException e) {
             System.out.println("I was awoken while waiting");
         }
+
+        // calling this removes delivered msgs from the Solace queue
+        consumer.close();
     }
 }
