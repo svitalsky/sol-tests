@@ -1,4 +1,4 @@
-package sol.ace.t.one.queue;
+package sol.ace.t.one.queue.simple;
 
 import com.solacesystems.jcsmp.*;
 import sol.ace.t.one.SolOneTConnector;
