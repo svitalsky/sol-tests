@@ -57,6 +57,7 @@ public class QueueReceiver {
         }
 
         // calling this removes delivered msgs from the Solace queue
+        // only necessary when delivery confirmation is not enabled and processed
         consumer.close();
     }
 }
