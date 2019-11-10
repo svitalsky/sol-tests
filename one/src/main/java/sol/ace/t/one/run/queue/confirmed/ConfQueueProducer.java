@@ -25,6 +25,7 @@ public class ConfQueueProducer {
             MsgInfo info = new MsgInfo(i);
             info.sessionIndependentMessage = msg;
             msg.setCorrelationKey(info);
+            msg.setTimeToLive(400L);
 //            msgList.add(info);
             producer.send(msg, queue);
         }
