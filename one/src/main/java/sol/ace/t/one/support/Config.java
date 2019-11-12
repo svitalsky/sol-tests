@@ -35,6 +35,15 @@ public enum Config {
         }
     }
 
+    public long getLongProperty(String key) {
+        try {
+            return Long.parseLong(properties.getProperty(key));
+        }
+        catch (NumberFormatException e) {
+            throw new IllegalArgumentException(String.format("Not a long property: '%s'", key));
+        }
+    }
+
     public boolean getBoolProperty(String key) {
         return Optional.ofNullable(properties.getProperty(key))
                 .map(s -> {

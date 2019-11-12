@@ -7,7 +7,7 @@ import java.util.concurrent.CountDownLatch;
 
 import static sol.ace.t.one.support.Config.CONFIG;
 
-public class QueueReceiver {
+public class QueueReceiverEven {
     public static void main(String[] args) throws JCSMPException {
         JCSMPSession session = new SolOneTConnector().connect();
         Queue queue = JCSMPFactory.onlyInstance().createQueue(CONFIG.getProperty("solace.queue"));
@@ -24,11 +24,22 @@ public class QueueReceiver {
             @Override
             public void onReceive(BytesXMLMessage msg) {
                 if (msg instanceof TextMessage) {
-                    System.out.printf("TextMessage received: '%s'%n", ((TextMessage) msg).getText());
-                } else {
+                    String text = ((TextMessage)msg).getText();
+                    String[] splitted = text.split(": ");
+                    if (splitted.length == 2) {
+                        int num = Integer.parseInt(splitted[1]);
+                        if (num % 2 == 0) {
+                            msg.ackMessage();
+                            System.out.printf("TextMessage received: '%s'%n", text);
+                        }
+                        else return;
+                    }
+                }
+                else {
+                    msg.ackMessage();
                     System.out.println("Message received.");
                 }
-                System.out.printf("Message Dump:%n%s%n", msg.dump());
+//                System.out.printf("Message Dump:%n%s%n", msg.dump());
                 // When the ack mode is set to SUPPORTED_MESSAGE_ACK_CLIENT,
                 // guaranteed delivery messages are acknowledged after
                 // processing
@@ -36,7 +47,6 @@ public class QueueReceiver {
                     Thread.sleep(50);
                 }
                 catch (InterruptedException e) {/**/}
-                msg.ackMessage();
                 latch.countDown(); // unblock main thread
             }
 
