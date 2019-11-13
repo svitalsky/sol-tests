@@ -20,6 +20,7 @@ public class ConfQueueProducer {
         for (int i = 1; i <= 2 * count; i++) {
             TextMessage msg =   JCSMPFactory.onlyInstance().createMessage(TextMessage.class);
             msg.setDeliveryMode(DeliveryMode.PERSISTENT);
+//            msg.setAckImmediately(true);
             String text = "Confirmed Publish Tutorial! Message ID: "+ i;
             msg.setText(text);
             MsgInfo info = new MsgInfo(i);
