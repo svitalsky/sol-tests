@@ -3,8 +3,11 @@ package sol.ace.t.one.run.queue;
 import com.solacesystems.jcsmp.*;
 import sol.ace.t.one.support.SolOneTConnector;
 
+import java.time.LocalDateTime;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
+import static java.time.LocalDateTime.now;
 import static sol.ace.t.one.support.Config.CONFIG;
 
 public class QueueReceiverAll {
@@ -18,11 +21,14 @@ public class QueueReceiverAll {
         EndpointProperties endpoint_props = new EndpointProperties();
         endpoint_props.setAccessType(EndpointProperties.ACCESSTYPE_EXCLUSIVE);
 
-        CountDownLatch latch = new CountDownLatch(4 * CONFIG.getIntProperty("solace.count"));
+        CountDownLatch latch = new CountDownLatch(CONFIG.getIntProperty("solace.count"));
+
+        Last last = new Last();
 
         FlowReceiver consumer = session.createFlow(new XMLMessageListener() {
             @Override
             public void onReceive(BytesXMLMessage msg) {
+                last.update();
                 if (msg instanceof TextMessage) {
                     msg.ackMessage();
                     System.out.printf("TextMessage received: '%s'%n", ((TextMessage)msg).getText());
@@ -52,7 +58,12 @@ public class QueueReceiverAll {
         consumer.start();
 
         try {
-            latch.await(); // block here until message received, and latch will flip
+            while (!latch.await(100, TimeUnit.MILLISECONDS)) { // block here until message received, and latch will flip
+                if (last.tooQuiet()) {
+                    consumer.close();
+                    System.exit(0);
+                }
+            }
         }
         catch (InterruptedException e) {
             System.out.println("I was awoken while waiting");
@@ -61,5 +72,17 @@ public class QueueReceiverAll {
         // calling this removes delivered msgs from the Solace queue
         // only necessary when delivery confirmation is not enabled and processed
         consumer.close();
+    }
+}
+
+class Last {
+    private LocalDateTime last = now();
+
+    synchronized void update() {
+        last = now();
+    }
+
+    synchronized boolean tooQuiet() {
+        return now().minusSeconds(300).isAfter(last);
     }
 }

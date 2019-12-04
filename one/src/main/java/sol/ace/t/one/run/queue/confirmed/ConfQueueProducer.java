@@ -9,7 +9,7 @@ import java.util.concurrent.CountDownLatch;
 import static sol.ace.t.one.support.Config.CONFIG;
 
 public class ConfQueueProducer {
-    private static final int count = CONFIG.getIntProperty("solace.count");
+    private static final int count = 2 * CONFIG.getIntProperty("solace.count");
 
     public static void main(String[] args) throws JCSMPException, InterruptedException {
         CountDownLatch latch = new CountDownLatch(count);
@@ -17,7 +17,7 @@ public class ConfQueueProducer {
         Queue queue = JCSMPFactory.onlyInstance().createQueue(CONFIG.getProperty("solace.queue"));
 //        List<MsgInfo> msgList = new ArrayList<>();
 
-        for (int i = 1; i <= 2 * count; i++) {
+        for (int i = 1; i <= count; i++) {
             TextMessage msg =   JCSMPFactory.onlyInstance().createMessage(TextMessage.class);
             msg.setDeliveryMode(DeliveryMode.PERSISTENT);
 //            msg.setAckImmediately(true);
