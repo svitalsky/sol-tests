@@ -9,7 +9,7 @@ import static sol.ace.t.one.support.Config.CONFIG;
 
 public class SolOneTConsumer {
     public static void main(String[] args) throws JCSMPException {
-        JCSMPSession session = new SolOneTConnector().connect();
+        JCSMPSession session = new SolOneTConnector().connect(args.length == 0);
 
         CountDownLatch latch = new CountDownLatch(CONFIG.getIntProperty("solace.count"));
 
